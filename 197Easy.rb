@@ -1,7 +1,7 @@
 # Challenge #196 [Easy]: ISBN Validator (2015-01-12)
 # from reddit.com/r/dailyprogrammer
 
-# Run instructions:
+# Run instructions for windows:
 # ruby 197Easy.rb 0-7475-3269-9 OR ruby 197Easy.rb 0747532699
 
 def check_isbn (isbn)
@@ -10,8 +10,7 @@ def check_isbn (isbn)
   isbn_list.push 10 if isbn[-1] == 'X'
   if isbn_list.size == 10
     (1..10).reverse_each { |i| isbn_list[i-1] *= i }
-    sum = 0
-    isbn_list.each { |x| sum += x }
+    sum = isbn_list.inject { |sum,x| sum + x }
     sum % 11 == 0
   else
     false
