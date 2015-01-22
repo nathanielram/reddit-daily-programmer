@@ -46,7 +46,7 @@ end
 def decode (n, text)
   cipher_map = build_map n, text
   mapping = Hash.new
-  text_array = text.split("")
+  text_array = text.chars
   n.times do |i| 
     cipher_map[i].each { |x| mapping[x] = text_array.delete_at(0) }
   end
