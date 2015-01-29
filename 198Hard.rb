@@ -73,7 +73,7 @@ class Round
     end
     diff = (word1.size - word2.size).abs
     case
-    when diff == 0 then [diff.abs, diff.abs] #[0,0]
+    when diff == 0 then [word1.size, word2.size] 
     when diff > 0 then [diff.abs, 0]
     when diff < 0 then [0, diff.abs]
     end
@@ -83,7 +83,7 @@ end
 class Game
   attr_accessor :ai_pts, :player_pts, :ai_rounds, :player_rounds, :dictionary, :generated_words, :difficulty, :current_round, :round_num, :num_turns
 
-  def initialize(num_letters, difficulty)
+  def initialize(difficulty)
     @num_turns = 5
     @ai_pts = @player_pts = @ai_rounds = @player_rounds = 0
     @round_num = 1
@@ -111,16 +111,15 @@ class Game
       pt1, pt2 = @current_round.battle word1, word2
       @player_pts += pt1
       @ai_pts += pt2
-      puts
-        case 
-        when pt1 > pt2 
-          @player_rounds += 1
-          "You won the round!"
-        when pt1 < pt2 
-          @ai_rounds += 1
-          "The computer won the round!"
-        when pt1 == pt2 then "The round was tied!"   
-        end
+      case 
+      when pt1 > pt2 
+        @player_rounds += 1
+        puts "You won the round!"
+      when pt1 < pt2 
+        @ai_rounds += 1
+        puts "The computer won the round!"
+      when pt1 == pt2 then puts "The round was tied!"   
+      end
       puts "Round #{@round_num} Score -- Player: #{pt1} Computer: #{pt2}"
       puts "Total Score -- Player: #{@player_pts} Computer: #{@ai_pts}"
       puts "Rounds Won -- Player: #{@player_rounds} Computer: #{@ai_rounds}"
@@ -135,23 +134,19 @@ class Game
     puts "Final Score -- Player: #{@player_pts} Computer: #{@ai_pts}"
     puts "Final Round Wins -- Player: #{@player_rounds} Computer: #{@ai_rounds}"
     print "By score: "
-    puts
-      case 
-      when @player_pts > @ai_pts then "You won the game!"
-      when @player_pts < @ai_pts then "The Computer won the game!"
-      when @player_pts == @ai_pts then "The game is tied"
-      end
+    case 
+    when @player_pts > @ai_pts then puts "You won the game!"
+    when @player_pts < @ai_pts then puts "The Computer won the game!"
+    when @player_pts == @ai_pts then puts "The game is tied"
+    end
     print "By rounds won: "
-    puts
-      case 
-      when @player_rounds > @ai_rounds then "You won the game!"
-      when @player_rounds < @ai_rounds then "The Computer won the game!"
-      when @player_rounds == @ai_rounds then "The game is tied"
-      end
+    case 
+    when @player_rounds > @ai_rounds then puts "You won the game!"
+    when @player_rounds < @ai_rounds then puts "The Computer won the game!"
+    when @player_rounds == @ai_rounds then puts "The game is tied"
+    end
   end
-
 end
-
 
 puts "Welcome to Words with Enemies!"
 difficulty = 0
