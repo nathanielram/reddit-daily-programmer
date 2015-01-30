@@ -14,7 +14,7 @@ class Round
   def generate_letters(num_letters)
     @letters = num_letters.times.map{ alphabet[rand(26)] } 
     build_possible_words
-    if (@letters.to_s.scan(/[aeiou]/).count > (num_letters / 5)) || (@possible_words.size > 30)
+    if (@letters.to_s.scan(/[aeiou]/).count > (num_letters / 5)) #&& (@possible_words.size > 20)
       print_letters @letters
     else
       generate_letters num_letters
@@ -58,8 +58,9 @@ class Round
   def check_word_duplicates?(word)
     temp_letters = @letters.clone
     word.chars.each do |letter|
-      r = temp_letters.delete letter
-      return false if r.nil?
+      i = temp_letters.index(letter)
+      return false if i.nil?
+      temp_letters.delete_at(i)
     end
     true
   end
@@ -71,7 +72,7 @@ class Round
         word2 = word2.sub letter, ''
       end
     end
-    diff = (word1.size - word2.size).abs
+    diff = word1.size - word2.size
     case
     when diff == 0 then [word1.size, word2.size] 
     when diff > 0 then [diff.abs, 0]
