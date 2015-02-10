@@ -10,7 +10,7 @@ today = Date.today
 date_until = Date.new year,month,day
 num_days = (date_until - today).to_i
 if num_days < 0
-  puts "The date is in the future!"
+  puts "The date is in the past!"
 else
   puts "#{num_days} days from #{today} to #{date_until}"
 end
