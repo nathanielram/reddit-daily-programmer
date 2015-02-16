@@ -31,7 +31,7 @@ def build_map (n, text)
       line = 1
     end
   end
-  cipher_map
+  return cipher_map
 end
 
 def encode (n, text)
@@ -40,7 +40,7 @@ def encode (n, text)
   n.times do |i| 
     cipher_map[i].each { |x| final += text[x] }
   end
-  final
+  return final
 end
 
 def decode (n, text)
@@ -52,7 +52,7 @@ def decode (n, text)
   end
   final = ""
   text.size.times { |i| final += mapping[i] }
-  final
+  return final
 end
 
 if ARGV[0] == "enc"

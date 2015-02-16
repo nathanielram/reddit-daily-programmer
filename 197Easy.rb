@@ -8,13 +8,9 @@ def check_isbn (isbn)
   isbn_list = Array.new
   isbn.gsub(/\D/, '').split("").each { |i| isbn_list.push i.to_i } 
   isbn_list.push 10 if isbn[-1] == 'X'
-  if isbn_list.size == 10
-    (1..10).reverse_each { |i| isbn_list[i-1] *= i }
-    sum = isbn_list.inject { |sum,x| sum + x }
-    sum % 11 == 0
-  else
-    false
-  end
+  (1..10).reverse_each { |i| isbn_list[i-1] *= i }
+  sum = isbn_list.inject { |sum,x| sum + x }
+  sum % 11 == 0
 end
 
 p check_isbn ARGV[0]
